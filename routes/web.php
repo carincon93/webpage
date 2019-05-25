@@ -11,6 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'WelcomeController@index')->name('welcome');
+
+Auth::routes();
+
+Route::get('/servicio/{servicioTitulo}', 'WelcomeController@getServicio')->name('servicio');
+Route::get('/empresa/{tipoInformacion}', 'WelcomeController@getInformacion')->name('informacionEmpresa');
+
+Route::group(['prefix' => 'panel', 'middleware' => ['auth']], function() {
+    Route::get('/', 'PanelController@index')->name('panel');
+    Route::resource('/imagenes', 'ImagenController');
+    Route::resource('/logos', 'LogoController');
+    Route::resource('/servicios', 'ServicioController');
+    Route::resource('/informaciones', 'InformacionController');
 });

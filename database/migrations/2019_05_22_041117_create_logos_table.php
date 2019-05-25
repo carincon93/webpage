@@ -15,6 +15,8 @@ class CreateLogosTable extends Migration
     {
         Schema::create('logos', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('titulo');
+            $table->longText('url');
             $table->timestamps();
         });
     }
